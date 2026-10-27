@@ -60,8 +60,10 @@
 
       .topbar {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
+        gap: 12px 20px;
         min-height: 84px;
       }
 
@@ -352,10 +354,15 @@
         }
 
         .topbar {
+          flex-wrap: wrap;
           min-height: 70px;
+          gap: 8px 16px;
+          padding-block: 12px;
         }
 
         .topnav {
+          flex-wrap: wrap;
+          justify-content: flex-start;
           gap: 13px;
           font-size: 0.82rem;
         }
@@ -417,13 +424,14 @@
   </head>
   <body>
     <header class="shell topbar">
-      <a class="brand" href="#top" aria-label="Natacha, accueil">
+      <a class="brand" href="./" aria-label="Natacha, accueil">
         <span class="brand-mark" aria-hidden="true">N</span>
         <span>Natacha</span>
       </a>
       <nav class="topnav" aria-label="Navigation principale">
         <a href="#features">Fonctionnalités</a>
-        <a href="#privacy">Confidentialité</a>
+        <a href="support/">Assistance</a>
+        <a href="privacy-policy/">Confidentialité</a>
         <a href="#english">English</a>
       </nav>
     </header>
@@ -439,7 +447,7 @@
         </p>
         <div class="hero-links">
           <a class="button" href="#features">Découvrir l’application</a>
-          <a class="button secondary" href="#privacy">Lire la note de confidentialité</a>
+          <a class="button secondary" href="privacy-policy/">Lire la politique de confidentialité</a>
         </div>
       </section>
 
@@ -486,7 +494,7 @@
         </div>
       </section>
 
-      <section id="privacy" class="privacy" aria-labelledby="privacy-title">
+      <section class="privacy" aria-labelledby="privacy-title">
         <div class="section-heading">
           <p class="eyebrow">Confidentialité</p>
           <h2 id="privacy-title">Vos données restent sous votre contrôle.</h2>
@@ -495,41 +503,7 @@
             compte et n’exploite pas de serveur pour stocker vos données.
           </p>
         </div>
-        <div class="privacy-grid">
-          <article class="privacy-item">
-            <h3>Stockage local et chiffré</h3>
-            <p>
-              Les informations saisies dans l’application sont conservées dans
-              une base chiffrée sur l’appareil. Sa clé est conservée dans le
-              trousseau sécurisé d’iOS ou le stockage sécurisé d’Android.
-            </p>
-          </article>
-          <article class="privacy-item">
-            <h3>Partages déclenchés par vous</h3>
-            <p>
-              Si vous choisissez d’envoyer un e-mail, un SMS ou une facture
-              électronique, les informations nécessaires sont transmises au
-              destinataire ou au service choisi. Leurs propres règles de
-              confidentialité s’appliquent.
-            </p>
-          </article>
-          <article class="privacy-item">
-            <h3>Connexion SuperPDP facultative</h3>
-            <p>
-              Si vous connectez SuperPDP et soumettez une facture, les données
-              de cette facture sont transmises à SuperPDP. Les jetons de
-              connexion sont conservés dans le stockage sécurisé de l’appareil.
-            </p>
-          </article>
-          <article class="privacy-item">
-            <h3>Sauvegardes sous votre contrôle</h3>
-            <p>
-              Les sauvegardes sont chiffrées et protégées par un mot de passe.
-              Vous choisissez où les enregistrer ou les partager ; Natacha ne
-              les téléverse pas automatiquement.
-            </p>
-          </article>
-        </div>
+        <a class="button secondary" href="privacy-policy/">Consulter la politique complète</a>
       </section>
 
       <aside class="review-note">
@@ -549,51 +523,14 @@
             does not operate a server to store your app data.
           </p>
         </div>
-        <div class="privacy-grid">
-          <article class="privacy-item">
-            <h3>What the app does</h3>
-            <p>
-              Keep client and patient details, notes and appointment history
-              together; organize appointments; manage services; and create
-              invoices. Core information is stored on the device.
-            </p>
-          </article>
-          <article class="privacy-item">
-            <h3>Local encrypted storage</h3>
-            <p>
-              App data is kept in an encrypted database on your device. Its key
-              is stored in iOS Keychain or Android secure storage.
-            </p>
-          </article>
-          <article class="privacy-item">
-            <h3>Sharing and connected services</h3>
-            <p>
-              If you choose to send an email, text message or electronic invoice,
-              the necessary information is shared with the recipient or service
-              you select. Submitting an invoice through optional SuperPDP sends
-              invoice data to SuperPDP; connection tokens stay in secure device
-              storage. Those services’ privacy practices apply to their use.
-            </p>
-          </article>
-          <article class="privacy-item">
-            <h3>Backups</h3>
-            <p>
-              Backups are encrypted and password-protected. You choose where to
-              save or share them; Natacha does not upload them automatically.
-            </p>
-          </article>
-        </div>
-        <aside class="review-note">
-          <strong>For App Review:</strong> no test credentials or account are
-          needed to open the app. Data created in Natacha is stored locally;
-          external sharing is initiated by the user.
-        </aside>
+        <a class="button secondary" href="privacy-policy/">Read the full privacy policy</a>
       </section>
     </main>
 
     <footer class="shell">
       <p>© 2026 Natacha</p>
       <p>Page statique · Aucun cookie ni outil de suivi intégré</p>
+      <p><a href="support/">Assistance</a> · <a href="privacy-policy/">Confidentialité</a></p>
     </footer>
   </body>
 </html>
