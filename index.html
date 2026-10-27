@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Natacha, une application mobile simple pour gérer ses clients, rendez-vous et factures."
+    />
+    <meta name="theme-color" content="#fffafc" />
+    <title>Natacha — gestion simple, données protégées</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #312932;
+        --muted: #756a74;
+        --pink: #b44f78;
+        --pink-dark: #8b365b;
+        --pink-light: #f8e8ef;
+        --paper: #fffafc;
+        --line: #eee2e8;
+        --white: #fff;
+        --shadow: 0 22px 70px rgb(80 43 61 / 9%);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(ellipse at 88% 4%, #f8e8ef 0, transparent 29rem),
+          var(--paper);
+        color: var(--ink);
+        line-height: 1.65;
+      }
+
+      a {
+        color: var(--pink-dark);
+        text-underline-offset: 0.2em;
+      }
+
+      a:focus-visible {
+        outline: 3px solid #d88baa;
+        outline-offset: 4px;
+        border-radius: 4px;
+      }
+
+      .shell {
+        width: min(100% - 40px, 1080px);
+        margin-inline: auto;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 84px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        color: var(--ink);
+        font-size: 1.15rem;
+        font-weight: 750;
+        letter-spacing: -0.04em;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        aspect-ratio: 1;
+        place-items: center;
+        border-radius: 13px;
+        background: var(--pink-light);
+        color: var(--pink-dark);
+        font-size: 1.1rem;
+      }
+
+      .topnav {
+        display: flex;
+        gap: 22px;
+        font-size: 0.9rem;
+      }
+
+      .topnav a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      .topnav a:hover {
+        color: var(--pink-dark);
+      }
+
+      .hero {
+        padding: 76px 0 78px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 20px;
+        color: var(--pink-dark);
+        font-size: 0.78rem;
+        font-weight: 750;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #cb7194;
+        content: "";
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 18px;
+        font-size: clamp(2.6rem, 7vw, 5.2rem);
+        font-weight: 720;
+        letter-spacing: -0.075em;
+        line-height: 1.02;
+      }
+
+      h1 span {
+        color: var(--pink);
+      }
+
+      .hero-copy {
+        max-width: 650px;
+        margin-bottom: 28px;
+        color: var(--muted);
+        font-size: clamp(1.02rem, 2vw, 1.2rem);
+      }
+
+      .hero-copy strong {
+        color: var(--ink);
+        font-weight: 650;
+      }
+
+      .hero-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 46px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 19px;
+        border: 1px solid var(--pink);
+        border-radius: 999px;
+        background: var(--pink);
+        color: var(--white);
+        font-size: 0.92rem;
+        font-weight: 650;
+        text-decoration: none;
+        transition:
+          background 150ms ease,
+          transform 150ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+        background: var(--pink-dark);
+      }
+
+      .button.secondary {
+        border-color: var(--line);
+        background: rgb(255 255 255 / 70%);
+        color: var(--ink);
+      }
+
+      .button.secondary:hover {
+        background: var(--white);
+      }
+
+      .trust-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 94px;
+      }
+
+      .trust-item {
+        min-height: 102px;
+        padding: 21px 23px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgb(255 255 255 / 75%);
+      }
+
+      .trust-item strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 1rem;
+      }
+
+      .trust-item span {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      section {
+        scroll-margin-top: 30px;
+      }
+
+      .section-heading {
+        max-width: 630px;
+        margin-bottom: 27px;
+      }
+
+      .section-heading h2 {
+        margin-bottom: 9px;
+        font-size: clamp(1.9rem, 4vw, 2.65rem);
+        letter-spacing: -0.055em;
+        line-height: 1.15;
+      }
+
+      .section-heading p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .features {
+        padding-bottom: 96px;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .feature {
+        min-height: 190px;
+        padding: 25px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--white);
+        box-shadow: 0 8px 30px rgb(80 43 61 / 3%);
+      }
+
+      .feature-icon {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        margin-bottom: 21px;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--pink-light);
+        color: var(--pink-dark);
+        font-size: 1.2rem;
+      }
+
+      .feature h3 {
+        margin-bottom: 6px;
+        font-size: 1.02rem;
+      }
+
+      .feature p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .privacy {
+        margin-bottom: 80px;
+        padding: clamp(26px, 5vw, 52px);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        background: linear-gradient(135deg, #fff 0%, #fff7fa 100%);
+        box-shadow: var(--shadow);
+      }
+
+      .privacy .section-heading {
+        margin-bottom: 32px;
+      }
+
+      .privacy-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px 38px;
+      }
+
+      .privacy-item h3 {
+        margin-bottom: 6px;
+        font-size: 0.99rem;
+      }
+
+      .privacy-item p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.91rem;
+      }
+
+      .review-note {
+        margin: 0 0 76px;
+        padding: 20px 23px;
+        border-left: 3px solid #cb7194;
+        border-radius: 0 12px 12px 0;
+        background: #f9edf2;
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .review-note strong {
+        color: var(--ink);
+      }
+
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 24px 0 34px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      footer p {
+        margin: 0;
+      }
+
+      @media (max-width: 700px) {
+        .shell {
+          width: min(100% - 30px, 560px);
+        }
+
+        .topbar {
+          min-height: 70px;
+        }
+
+        .topnav {
+          gap: 13px;
+          font-size: 0.82rem;
+        }
+
+        .hero {
+          padding: 58px 0 56px;
+        }
+
+        .trust-row,
+        .feature-grid,
+        .privacy-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .trust-row {
+          gap: 10px;
+          margin-bottom: 72px;
+        }
+
+        .trust-item {
+          min-height: auto;
+          padding: 16px 19px;
+        }
+
+        .features {
+          padding-bottom: 70px;
+        }
+
+        .feature {
+          min-height: auto;
+        }
+
+        .feature-icon {
+          margin-bottom: 15px;
+        }
+
+        .privacy {
+          margin-bottom: 62px;
+          border-radius: 20px;
+        }
+
+        .review-note {
+          margin-bottom: 58px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="shell topbar">
+      <a class="brand" href="#top" aria-label="Natacha, accueil">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span>Natacha</span>
+      </a>
+      <nav class="topnav" aria-label="Navigation principale">
+        <a href="#features">Fonctionnalités</a>
+        <a href="#privacy">Confidentialité</a>
+        <a href="#english">English</a>
+      </nav>
+    </header>
+
+    <main id="top" class="shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">Une application mobile, simplement</p>
+        <h1 id="hero-title">Votre activité,<br /><span>en toute simplicité.</span></h1>
+        <p class="hero-copy">
+          <strong>Natacha</strong> vous aide à gérer vos clients ou patients,
+          vos rendez-vous, vos prestations et vos factures depuis votre téléphone.
+          Pas de compte à créer, pas de serveur Natacha.
+        </p>
+        <div class="hero-links">
+          <a class="button" href="#features">Découvrir l’application</a>
+          <a class="button secondary" href="#privacy">Lire la note de confidentialité</a>
+        </div>
+      </section>
+
+      <div class="trust-row" aria-label="En bref">
+        <div class="trust-item">
+          <strong>Sur votre appareil</strong>
+          <span>Vos données sont conservées localement.</span>
+        </div>
+        <div class="trust-item">
+          <strong>Base chiffrée</strong>
+          <span>La base locale est protégée par chiffrement.</span>
+        </div>
+        <div class="trust-item">
+          <strong>Sans compte</strong>
+          <span>Aucune inscription ni connexion requise.</span>
+        </div>
+      </div>
+
+      <section id="features" class="features" aria-labelledby="features-title">
+        <div class="section-heading">
+          <p class="eyebrow">L’essentiel au même endroit</p>
+          <h2 id="features-title">Une gestion claire au quotidien.</h2>
+          <p>
+            Retrouvez les outils utiles à votre activité dans une application
+            conçue pour rester simple et utilisable hors ligne.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">♡</div>
+            <h3>Clients et patients</h3>
+            <p>Retrouvez leurs coordonnées, notes et historique de rendez-vous.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">◷</div>
+            <h3>Rendez-vous</h3>
+            <p>Organisez votre agenda et planifiez vos prestations.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon" aria-hidden="true">€</div>
+            <h3>Prestations et factures</h3>
+            <p>Gérez votre catalogue et créez des factures depuis l’application.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="privacy" class="privacy" aria-labelledby="privacy-title">
+        <div class="section-heading">
+          <p class="eyebrow">Confidentialité</p>
+          <h2 id="privacy-title">Vos données restent sous votre contrôle.</h2>
+          <p>
+            Natacha est une application autonome : elle ne nécessite pas de
+            compte et n’exploite pas de serveur pour stocker vos données.
+          </p>
+        </div>
+        <div class="privacy-grid">
+          <article class="privacy-item">
+            <h3>Stockage local et chiffré</h3>
+            <p>
+              Les informations saisies dans l’application sont conservées dans
+              une base chiffrée sur l’appareil. Sa clé est conservée dans le
+              trousseau sécurisé d’iOS ou le stockage sécurisé d’Android.
+            </p>
+          </article>
+          <article class="privacy-item">
+            <h3>Partages déclenchés par vous</h3>
+            <p>
+              Si vous choisissez d’envoyer un e-mail, un SMS ou une facture
+              électronique, les informations nécessaires sont transmises au
+              destinataire ou au service choisi. Leurs propres règles de
+              confidentialité s’appliquent.
+            </p>
+          </article>
+          <article class="privacy-item">
+            <h3>Connexion SuperPDP facultative</h3>
+            <p>
+              Si vous connectez SuperPDP et soumettez une facture, les données
+              de cette facture sont transmises à SuperPDP. Les jetons de
+              connexion sont conservés dans le stockage sécurisé de l’appareil.
+            </p>
+          </article>
+          <article class="privacy-item">
+            <h3>Sauvegardes sous votre contrôle</h3>
+            <p>
+              Les sauvegardes sont chiffrées et protégées par un mot de passe.
+              Vous choisissez où les enregistrer ou les partager ; Natacha ne
+              les téléverse pas automatiquement.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <aside class="review-note">
+        <strong>Pour l’évaluation :</strong> aucun identifiant ni compte de test
+        n’est nécessaire pour ouvrir l’application. Les données créées dans
+        Natacha sont conservées localement ; les envois externes sont initiés
+        par l’utilisateur.
+      </aside>
+
+      <section id="english" class="english-version" lang="en" aria-labelledby="english-title">
+        <div class="section-heading">
+          <p class="eyebrow">English</p>
+          <h2 id="english-title">Simple tools for your business.</h2>
+          <p>
+            Natacha helps you manage clients or patients, appointments, services
+            and invoices from your phone. No account is required, and Natacha
+            does not operate a server to store your app data.
+          </p>
+        </div>
+        <div class="privacy-grid">
+          <article class="privacy-item">
+            <h3>What the app does</h3>
+            <p>
+              Keep client and patient details, notes and appointment history
+              together; organize appointments; manage services; and create
+              invoices. Core information is stored on the device.
+            </p>
+          </article>
+          <article class="privacy-item">
+            <h3>Local encrypted storage</h3>
+            <p>
+              App data is kept in an encrypted database on your device. Its key
+              is stored in iOS Keychain or Android secure storage.
+            </p>
+          </article>
+          <article class="privacy-item">
+            <h3>Sharing and connected services</h3>
+            <p>
+              If you choose to send an email, text message or electronic invoice,
+              the necessary information is shared with the recipient or service
+              you select. Submitting an invoice through optional SuperPDP sends
+              invoice data to SuperPDP; connection tokens stay in secure device
+              storage. Those services’ privacy practices apply to their use.
+            </p>
+          </article>
+          <article class="privacy-item">
+            <h3>Backups</h3>
+            <p>
+              Backups are encrypted and password-protected. You choose where to
+              save or share them; Natacha does not upload them automatically.
+            </p>
+          </article>
+        </div>
+        <aside class="review-note">
+          <strong>For App Review:</strong> no test credentials or account are
+          needed to open the app. Data created in Natacha is stored locally;
+          external sharing is initiated by the user.
+        </aside>
+      </section>
+    </main>
+
+    <footer class="shell">
+      <p>© 2026 Natacha</p>
+      <p>Page statique · Aucun cookie ni outil de suivi intégré</p>
+    </footer>
+  </body>
+</html>
